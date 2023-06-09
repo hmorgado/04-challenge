@@ -1,0 +1,30 @@
+name: hello world artifact challenge
+
+on: push
+env:
+  FILE_NAME: hello.py
+
+jobs:
+  job01:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup python
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.11.3
+      - name: Checkout Pytorch
+        uses: actions/checkout@master
+      - name: run script
+        run: python ${{ env.FILENAME }}
+      - name: upload artifact
+        uses: actions/upload-artifact@v1.0.0
+        with:
+          name: heitors-file-upload
+          path: ./${{ env.FILE_NAME }}
+  job02:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v1.0.0
+        with:
+          name: heitors-file-download
