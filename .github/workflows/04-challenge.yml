@@ -3,6 +3,7 @@ name: hello world artifact challenge
 on: push
 env:
   FILE_NAME: hello.py
+  ARTIFACT:  heitors-file
 
 jobs:
   job01:
@@ -19,7 +20,7 @@ jobs:
       - name: upload artifact
         uses: actions/upload-artifact@v1.0.0
         with:
-          name: heitors-file-upload
+          name: ${{ env.ARTIFACT }}
           path: ./${{ env.FILE_NAME }}
   job02:
     runs-on: ubuntu-latest
@@ -27,4 +28,4 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v1.0.0
         with:
-          name: heitors-file-download
+          name: ${{ env.ARTIFACT }}
